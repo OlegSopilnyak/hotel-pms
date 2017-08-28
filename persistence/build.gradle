@@ -1,0 +1,11 @@
+description = 'Persistence-Layer-Module'
+dependencies {
+    compile (group: 'org.springframework.data', name: 'spring-data-jpa', version:'1.11.4.RELEASE'){
+        exclude group: 'org.slf4j'
+    }
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'5.2.10.Final'
+    compile group: 'org.hibernate', name: 'hibernate-java8', version:'5.2.10.Final'
+    compile group: 'org.aspectj', name : 'aspectjweaver', version: '1.8.9'
+
+    runtime group: 'com.h2database', name: 'h2', version:'1.4.196'
+}

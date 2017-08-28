@@ -1,0 +1,46 @@
+group = 'org.springframework.boot'
+version = '1.5.6.RELEASE'
+description = 'Runner-Application-Service'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.+'
+        classpath 'se.transmode.gradle:gradle-docker:1.+'
+    }
+}
+
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+jar {
+    baseName = 'test-runner'
+    version = '0.3.0'
+}
+
+task buildDocker(type: Docker) {
+    baseImage = 'develar/java:latest'
+    push = false
+    tag = 'sopilnyak/test-1'
+    addFile {
+        from jar
+        rename { 'runner.jar' }
+    }
+    volume('/tmp')
+    workingDir("/tmp")
+    entryPoint(['java', '-jar', '/runner.jar'])
+    exposePort(8080)
+}
+
+buildDocker.dependsOn(build)
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-actuator:1.5.+'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web') {
+        exclude(module: 'spring-boot-starter-logging')
+    }
+}
+

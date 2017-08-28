@@ -1,0 +1,7 @@
+group = 'oleg.sopilnyak.common'
+version = '0.4-SNAPSHOT'
+description = 'Common-Services'
+dependencies {
+    compile group: 'org.springframework', name: 'spring-beans', version:'4.3.9.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version:'4.3.9.RELEASE'
+}

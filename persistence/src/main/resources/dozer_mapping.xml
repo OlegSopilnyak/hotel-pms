@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+
+    <mapping wildcard="true" type="bi-directional">
+        <class-a>oleg.sopilnyak.common.model.transport.HotelAgreementDto</class-a>
+        <class-b>oleg.sopilnyak.persistence.model.HotelAgreementEntity</class-b>
+        <field>
+            <a>guestSet</a>
+            <b>guestSet</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.GuestDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.GuestEntity</b-hint>
+        </field>
+    </mapping>
+    <mapping wildcard="true" type="bi-directional">
+        <class-a>oleg.sopilnyak.common.model.transport.HabitationDto</class-a>
+        <class-b>oleg.sopilnyak.persistence.model.HabitationEntity</class-b>
+        <field>
+            <a>occupied</a>
+            <b>occupied</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.HabitationOccupiedDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.HabitationOccupiedEntity</b-hint>
+        </field>
+        <field>
+            <a>services</a>
+            <b>services</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.ServiceProvidedDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.ServiceProvidedEntity</b-hint>
+        </field>
+    </mapping>
+
+    <mapping wildcard="true" type="bi-directional">
+        <class-a>oleg.sopilnyak.common.model.transport.HotelDto</class-a>
+        <class-b>oleg.sopilnyak.persistence.model.HotelEntity</class-b>
+        <field>
+            <a>rooms</a>
+            <b>rooms</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.RoomDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.RoomEntity</b-hint>
+        </field>
+    </mapping>
+
+    <mapping wildcard="true" type="bi-directional">
+        <class-a>oleg.sopilnyak.common.model.transport.RoomDto</class-a>
+        <class-b>oleg.sopilnyak.persistence.model.RoomEntity</class-b>
+        <field>
+            <a>availableFeatures</a>
+            <b>availableFeatures</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.RoomFeatureDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.RoomFeatureEntity</b-hint>
+        </field>
+    </mapping>
+
+    <mapping wildcard="true" type="bi-directional">
+        <class-a>oleg.sopilnyak.common.model.transport.HabitationOccupiedDto</class-a>
+        <class-b>oleg.sopilnyak.persistence.model.HabitationOccupiedEntity</class-b>
+        <field>
+            <a>guests</a>
+            <b>guests</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.GuestDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.GuestEntity</b-hint>
+        </field>
+        <field>
+            <a>activeFeatures</a>
+            <b>activeFeatures</b>
+            <a-hint>oleg.sopilnyak.common.model.transport.RoomFeatureDto</a-hint>
+            <b-hint>oleg.sopilnyak.persistence.model.RoomFeatureEntity</b-hint>
+        </field>
+    </mapping>
+
+</mappings>

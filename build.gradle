@@ -1,0 +1,65 @@
+allprojects {
+    group = 'oleg.sopilnyak'
+    version = '0.2-SNAPSHOT'
+
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.8'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.8'
+        compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.8.8'
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.20'
+        testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+        testCompile "junit:junit:4.12"
+    }
+
+}
+
+subprojects {
+    dependencies {
+
+        compile (group: 'net.sf.dozer', name: 'dozer', version: '5.5.1') {
+            exclude group: 'org.slf4j'
+        }
+        compile group: 'io.craftsman', name: 'dozer-jdk8-support', version: '1.0.2'
+        compile group: 'org.springframework', name: 'spring-context', version: '4.3.9.RELEASE'
+
+        testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.9.RELEASE'
+    }
+}
+
+
+project(':common:service') {
+    dependencies {
+        compile project(':common:model')
+    }
+}
+project(':rest') {
+    dependencies {
+        compile project(':common:service')
+        compile project(':persistence')
+    }
+}
+project(':persistence') {
+    dependencies {
+        compile project(':common:service')
+    }
+}
+project(':service-runner') {
+    dependencies {
+        compile project(':rest')
+        compile project(':persistence')
+    }
+}

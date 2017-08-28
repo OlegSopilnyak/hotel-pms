@@ -1,0 +1,13 @@
+rootProject.name = 'hotel-pms-new'
+
+include ':common:model'
+include ':common:service'
+include ':rest'
+include ':persistence'
+include ':service-runner'
+
+project(':common:model').projectDir = "$rootDir/common/model" as File
+project(':common:service').projectDir = "$rootDir/common/service" as File
+project(':rest').projectDir = "$rootDir/rest" as File
+project(':persistence').projectDir = "$rootDir/persistence" as File
+project(':service-runner').projectDir = "$rootDir/service-runner" as File
