@@ -27,7 +27,8 @@ with in-memory database, entering: **jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLO
 `POST /api/rooms-reservation/update` - update confirmed reservation;<br/>
 `GET /api/rooms-reservation/agreement/{id}` - get hotel agreement by id <br/>
 `DELETE /api/rooms-reservation/agreement/{id}` - delete reservation by id<br/>
-`GET /api/rooms-reservation/reserved/from/{from}/till/{till}` - where parameters look<br/> like **`yyyy-MM-dd`** get set of reservations by period.
+`GET /api/rooms-reservation/reserved/from/{from}/till/{till}` - where parameters look<br/> like **`yyyy-MM-dd`**,
+to get reservations by period of dates.<br/>
  
 <br/>Micro-service has 5 modules:<br/>
 **common:model** - the business and transport model for business-logic<br/>
@@ -36,4 +37,4 @@ with in-memory database, entering: **jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLO
 **rest** - presentation layer of service (REST controllers)<br/>
 **service-runner** - module to run service and Docker's stuff.
 <br/><br/><br/>
-If you have any question don't hesitate to ask my directly via e-mail<br/>**oleg.sopilnyak@gmail.com**
+If you have any question don't hesitate to ask my directly via e-mail<br/>**oleg.sopilnyak@gmail.com** or<br>Skype **oleg.sopilnyak**
