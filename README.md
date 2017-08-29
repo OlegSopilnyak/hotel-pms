@@ -3,7 +3,7 @@ PoC for hotel rooms booking process.
 Micro-service demonstrate a facility to book room
 for guest to particular period of time. All data
 will be stored to external source for future processing.
-Business Model contains hotels, rooms, services provides by hotel,
+Business Model contains hotels, rooms, services provided by hotel,
 guests, hotel staff etc. For this PoC used H2 in-memory RDBMS.<br/>
 To build project execute command:<br/>
 **$gradle build**<br/><br/>
