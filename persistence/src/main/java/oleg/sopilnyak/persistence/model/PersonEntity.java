@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "person_type")
 @EqualsAndHashCode(callSuper = true)
-class PersonEntity extends AbstractEntity implements Person, Serializable {
+public class PersonEntity extends AbstractEntity implements Person, Serializable {
     @Column(name = "person_id", unique = true)
     private String id;
     private String firstName;

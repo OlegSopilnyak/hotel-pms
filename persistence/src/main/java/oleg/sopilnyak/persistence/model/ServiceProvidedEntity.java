@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "provided_services")
 @EqualsAndHashCode(callSuper = true)
-class ServiceProvidedEntity extends AbstractEntity implements ServiceProvided{
+public class ServiceProvidedEntity extends AbstractEntity implements ServiceProvided{
     private String name;
     private String description;
     private State state;

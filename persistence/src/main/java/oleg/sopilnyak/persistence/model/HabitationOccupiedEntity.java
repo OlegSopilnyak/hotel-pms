@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "room_occupied")
 @EqualsAndHashCode(callSuper = true)
-class HabitationOccupiedEntity extends AbstractEntity implements Habitation.OccupiedRoom{
+public class HabitationOccupiedEntity extends AbstractEntity implements Habitation.OccupiedRoom{
     @OneToOne(fetch = FetchType.EAGER, targetEntity = RoomEntity.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "ho_room", joinColumns = @JoinColumn(name = "ho_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))
     private RoomEntity room;

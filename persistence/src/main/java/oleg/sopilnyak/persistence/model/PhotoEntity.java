@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @Embeddable
-class PhotoEntity implements Photo, Serializable {
+public class PhotoEntity implements Photo, Serializable {
     @Column(name = "photo_image")
     private byte[] image;
     @Column(name = "photo_contentType")

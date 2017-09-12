@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data
 @Embeddable
 @EqualsAndHashCode
-class CreditCardEntity implements CreditCard {
+public class CreditCardEntity implements CreditCard {
     @Column(name = "creditcard_id")
     private String id;
     @Column(name = "creditcard_number")
