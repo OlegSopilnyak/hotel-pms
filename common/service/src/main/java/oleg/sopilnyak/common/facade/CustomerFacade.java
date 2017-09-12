@@ -25,7 +25,7 @@ public interface CustomerFacade {
     /**
      * To change reservation parameters
      *
-     * @param id id of created agrrement
+     * @param id id of created agreement
      * @param from arrival date
      * @param to department date
      * @param guests guests set

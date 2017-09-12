@@ -1,15 +1,11 @@
 package oleg.sopilnyak.common.facade.impl;
 
-import oleg.sopilnyak.common.model.business.Guest;
-import oleg.sopilnyak.common.model.business.HotelAgreement;
-import oleg.sopilnyak.common.model.business.PreBookingResult;
-import oleg.sopilnyak.common.model.business.Room;
+import oleg.sopilnyak.common.model.business.*;
 import oleg.sopilnyak.common.model.transport.*;
 import oleg.sopilnyak.common.service.PersistenceService;
 import oleg.sopilnyak.common.service.ReservationService;
 import oleg.sopilnyak.common.util.Utility;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -55,7 +51,7 @@ public class CustomerFacadeImplTest {
 
         assertNotNull(result);
         assertEquals(result, resultDto);
-        verify(service, times(1)).book(eq(from), eq(to), eq(guests), eq(1), any(Set.class));
+        verify(service, times(1)).book(eq(from), eq(to), eq(guests), eq(1), anySetOf(Room.Feature.class));
     }
 
     @Test
@@ -90,7 +86,7 @@ public class CustomerFacadeImplTest {
         String agreementId = facade.confirm(confirmation);
 
         assertEquals(id, agreementId);
-        verify(service, times(1)).confirmReservation(eq(id), any(Set.class), eq(card));
+        verify(service, times(1)).confirmReservation(eq(id), anySetOf(ConfirmReservation.BookedRoom.class), eq(card));
     }
 
     @Test

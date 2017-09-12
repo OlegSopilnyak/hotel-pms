@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class IdGeneratorServiceImplTest {
 
-    private IdGeneratorServiceImpl service = new IdGeneratorServiceImpl();
+    private final IdGeneratorServiceImpl service = new IdGeneratorServiceImpl();
     @org.junit.Test
     public void generateUUID() throws Exception {
         UUID id = service.generateUUID();

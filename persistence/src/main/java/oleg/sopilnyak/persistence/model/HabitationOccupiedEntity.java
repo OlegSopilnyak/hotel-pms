@@ -13,8 +13,8 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "room_occupied")
-@EqualsAndHashCode(callSuper = false)
-public class HabitationOccupiedEntity extends AbstractEntity implements Habitation.OccupiedRoom{
+@EqualsAndHashCode(callSuper = true)
+class HabitationOccupiedEntity extends AbstractEntity implements Habitation.OccupiedRoom{
     @OneToOne(fetch = FetchType.EAGER, targetEntity = RoomEntity.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "ho_room", joinColumns = @JoinColumn(name = "ho_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))
     private RoomEntity room;

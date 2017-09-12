@@ -24,7 +24,7 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -32,15 +32,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static oleg.sopilnyak.common.util.Utility.makeOneGuest;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unchecked")
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationServiceImplTest {
     @Spy
-    private Mapper mapper = new DozerBeanMapper(Arrays.asList("dozerJdk8Converters.xml"));
+    private Mapper mapper = new DozerBeanMapper(Collections.singletonList("dozerJdk8Converters.xml"));
     @Spy
     private TimeService timer = new TimeServiceImpl();
     @Spy
@@ -70,6 +72,7 @@ public class ReservationServiceImplTest {
         ReflectionTestUtils.setField(service, "scanDelay", 10L);
         ReflectionTestUtils.setField(service, "expiredAfterMinutes", 30L);
         ScheduledFuture future = mock(ScheduledFuture.class);
+        //noinspection unchecked
         when(runner.scheduleWithFixedDelay(any(), anyLong(), anyLong(), any(TimeUnit.class))).thenReturn(future);
         when(guestsFactory.getObject()).thenReturn(new GuestDto());
         when(agreementsFactory.getObject()).thenReturn(new HotelAgreementDto());
@@ -108,7 +111,7 @@ public class ReservationServiceImplTest {
         LocalDate to = LocalDate.now().plusDays(2);
         Set<Guest> guests = makeOneGuest();
         Room room = new RoomDto();
-        when(persistence.findFreeRooms(from, to)).thenReturn(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        when(persistence.findFreeRooms(from, to)).thenReturn(Stream.of(room).collect(Collectors.toSet()));
 
         PreBookingResult result = service.book(from, to, guests, 1, new HashSet<>());
 
@@ -125,7 +128,7 @@ public class ReservationServiceImplTest {
         LocalDate to = LocalDate.now().plusDays(2);
         Set<Guest> guests = makeOneGuest();
         Room room = new RoomDto();
-        when(persistence.findFreeRooms(from, to)).thenReturn(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        when(persistence.findFreeRooms(from, to)).thenReturn(Stream.of(room).collect(Collectors.toSet()));
 
         service.destroy();
         PreBookingResult result = service.book(from, to, guests, 1, new HashSet<>());
@@ -139,7 +142,7 @@ public class ReservationServiceImplTest {
         LocalDate to = LocalDate.now().plusDays(2);
         Set<Guest> guests = makeOneGuest();
         Room room = new RoomDto();
-        when(persistence.findFreeRooms(from, to)).thenReturn(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        when(persistence.findFreeRooms(from, to)).thenReturn(Stream.of(room).collect(Collectors.toSet()));
         when(persistence.getGuest(any(PersonDto.ID.class))).thenReturn(new GuestDto());
 
         PreBookingResult result = service.book(from, to, guests, 1, new HashSet<>());
@@ -216,7 +219,7 @@ public class ReservationServiceImplTest {
         LocalDate to = LocalDate.now().plusDays(2);
         Set<Guest> guests = makeOneGuest();
         Room room = new RoomDto();
-        when(persistence.findFreeRooms(from, to)).thenReturn(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        when(persistence.findFreeRooms(from, to)).thenReturn(Stream.of(room).collect(Collectors.toSet()));
         HotelAgreementDto agreementDto = agreementsFactory.getObject();
         agreementDto.getReservation().setState(Reservation.State.CONFIRMED);
         when(persistence.getById(id)).thenReturn(agreementDto);
@@ -238,7 +241,7 @@ public class ReservationServiceImplTest {
         LocalDate to = LocalDate.now().plusDays(2);
         Set<Guest> guests = makeOneGuest();
         Room room = new RoomDto();
-        when(persistence.findFreeRooms(from, to)).thenReturn(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        when(persistence.findFreeRooms(from, to)).thenReturn(Stream.of(room).collect(Collectors.toSet()));
         HotelAgreementDto agreementDto = agreementsFactory.getObject();
         agreementDto.getReservation().setState(Reservation.State.CONFIRMED);
         when(persistence.getById(id)).thenReturn(agreementDto);
@@ -259,7 +262,7 @@ public class ReservationServiceImplTest {
         LocalDate to = LocalDate.now().plusDays(2);
         Set<Guest> guests = makeOneGuest();
         Room room = new RoomDto();
-        when(persistence.findFreeRooms(from, to)).thenReturn(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        when(persistence.findFreeRooms(from, to)).thenReturn(Stream.of(room).collect(Collectors.toSet()));
         when(persistence.getGuest(any(PersonDto.ID.class))).thenReturn(new GuestDto());
 
         PreBookingResult result = service.change(id, from, to, guests, 1);
@@ -293,16 +296,16 @@ public class ReservationServiceImplTest {
         CreditCard card = new CreditCardDto();
         ConfirmedRoomDto confirmedRoom = new ConfirmedRoomDto();
         confirmedRoom.setRoomCode("34");
-        Set<ConfirmReservation.BookedRoom> rooms = Arrays.asList(confirmedRoom).stream().collect(Collectors.toSet());
+        Set<ConfirmReservation.BookedRoom> rooms = Stream.of(confirmedRoom).collect(Collectors.toSet());
         Guest guest = makeOneGuest().iterator().next();
-        confirmedRoom.setGuestIds(Arrays.asList(guest.getId()).stream().collect(Collectors.toSet()));
+        confirmedRoom.setGuestIds(Stream.of(guest.getId()).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setId("34");
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
         occupied.setRoom(room);
         occupied.setGuests(new LinkedHashSet());
-        agreementDto.getHabitation().setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        agreementDto.getHabitation().setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
 
         service.confirmReservation(id, rooms, card);
 
@@ -322,16 +325,16 @@ public class ReservationServiceImplTest {
         CreditCard card = new CreditCardDto();
         ConfirmedRoomDto confirmedRoom = new ConfirmedRoomDto();
         confirmedRoom.setRoomCode("34");
-        Set<ConfirmReservation.BookedRoom> rooms = Arrays.asList(confirmedRoom).stream().collect(Collectors.toSet());
+        Set<ConfirmReservation.BookedRoom> rooms = Stream.of(confirmedRoom).collect(Collectors.toSet());
         Guest guest = makeOneGuest().iterator().next();
-        confirmedRoom.setGuestIds(Arrays.asList(guest.getId()).stream().collect(Collectors.toSet()));
+        confirmedRoom.setGuestIds(Stream.of(guest.getId()).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setId("34");
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
         occupied.setRoom(room);
         occupied.setGuests(new LinkedHashSet());
-        agreementDto.getHabitation().setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        agreementDto.getHabitation().setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
 
         service.destroy();
         service.confirmReservation(id, rooms, card);
@@ -350,16 +353,16 @@ public class ReservationServiceImplTest {
         CreditCard card = new CreditCardDto();
         ConfirmedRoomDto confirmedRoom = new ConfirmedRoomDto();
         confirmedRoom.setRoomCode("34");
-        Set<ConfirmReservation.BookedRoom> rooms = Arrays.asList(confirmedRoom).stream().collect(Collectors.toSet());
+        Set<ConfirmReservation.BookedRoom> rooms = Stream.of(confirmedRoom).collect(Collectors.toSet());
         Guest guest = makeOneGuest().iterator().next();
-        confirmedRoom.setGuestIds(Arrays.asList(guest.getId()).stream().collect(Collectors.toSet()));
+        confirmedRoom.setGuestIds(Stream.of(guest.getId()).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setId("34");
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
         occupied.setRoom(room);
         occupied.setGuests(new LinkedHashSet());
-        agreementDto.getHabitation().setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        agreementDto.getHabitation().setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
 
         service.confirmReservation(id, rooms, card);
 
@@ -377,16 +380,16 @@ public class ReservationServiceImplTest {
         CreditCard card = new CreditCardDto();
         ConfirmedRoomDto confirmedRoom = new ConfirmedRoomDto();
         confirmedRoom.setRoomCode("34");
-        Set<ConfirmReservation.BookedRoom> rooms = Arrays.asList(confirmedRoom).stream().collect(Collectors.toSet());
+        Set<ConfirmReservation.BookedRoom> rooms = Stream.of(confirmedRoom).collect(Collectors.toSet());
         Guest guest = makeOneGuest().iterator().next();
-        confirmedRoom.setGuestIds(Arrays.asList(guest.getId()).stream().collect(Collectors.toSet()));
+        confirmedRoom.setGuestIds(Stream.of(guest.getId()).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setId("35");
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
         occupied.setRoom(room);
         occupied.setGuests(new LinkedHashSet());
-        agreementDto.getHabitation().setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        agreementDto.getHabitation().setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
 
         service.confirmReservation(id, rooms, card);
 
@@ -405,16 +408,16 @@ public class ReservationServiceImplTest {
         CreditCard card = new CreditCardDto();
         ConfirmedRoomDto confirmedRoom = new ConfirmedRoomDto();
         confirmedRoom.setRoomCode("34");
-        Set<ConfirmReservation.BookedRoom> rooms = Arrays.asList(confirmedRoom).stream().collect(Collectors.toSet());
+        Set<ConfirmReservation.BookedRoom> rooms = Stream.of(confirmedRoom).collect(Collectors.toSet());
         Guest guest = makeOneGuest().iterator().next();
-        confirmedRoom.setGuestIds(Arrays.asList(guest.getId()).stream().collect(Collectors.toSet()));
+        confirmedRoom.setGuestIds(Stream.of(guest.getId()).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setId("34");
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
         occupied.setRoom(room);
         occupied.setGuests(new LinkedHashSet());
-        agreementDto.getHabitation().setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        agreementDto.getHabitation().setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
 
         service.confirmReservation(id, rooms, card);
 
@@ -459,10 +462,10 @@ public class ReservationServiceImplTest {
         final LocalDate to = timer.today();
         int rooms = 1;
         RoomDto room = new RoomDto();
-        Set<Room.Feature> features = Arrays.asList(new RoomFeatureDto()).stream().collect(Collectors.toSet());
+        Set<Room.Feature> features = Stream.of(new RoomFeatureDto()).collect(Collectors.toSet());
         room.setAvailableFeatures(features);
 
-        Set<Room> roomSet = Arrays.asList(room).stream().collect(Collectors.toSet());
+        Set<Room> roomSet = Stream.of(room).collect(Collectors.toSet());
         when(persistence.findFreeRooms(from, to)).thenReturn(roomSet);
 
         Set<Room> free = service.getAvailableRooms(from, to, rooms, features);
@@ -496,7 +499,7 @@ public class ReservationServiceImplTest {
 
         HotelAgreementDto agreement = new HotelAgreementDto();
         agreement.setGuestSet(guests);
-        when(persistence.searchHotelAgreements(from, to)).thenReturn(Arrays.asList(agreement).stream().collect(Collectors.toSet()));
+        when(persistence.searchHotelAgreements(from, to)).thenReturn(Stream.of(agreement).collect(Collectors.toSet()));
 
         service.checkHotelAgreement(guests, from, to, rooms);
 
@@ -515,7 +518,7 @@ public class ReservationServiceImplTest {
         agreement.getReservation().setState(Reservation.State.CONFIRMED);
         agreement.getHabitation().getOccupied().add(new Object());
 
-        when(persistence.searchHotelAgreements(from, to)).thenReturn(Arrays.asList(agreement).stream().collect(Collectors.toSet()));
+        when(persistence.searchHotelAgreements(from, to)).thenReturn(Stream.of(agreement).collect(Collectors.toSet()));
 
 
         service.checkHotelAgreement(guests, from, to, rooms);

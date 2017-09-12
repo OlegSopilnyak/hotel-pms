@@ -85,7 +85,7 @@ public interface Person extends HaveId,Serializable {
     String getAbout();
 
     /**
-     * To get tags assosiated with person
+     * To get tags associated with person
      *
      * @return tags
      */
@@ -105,7 +105,7 @@ public interface Person extends HaveId,Serializable {
         /**
          * To get citizenship of the person
          *
-         * @return
+         * @return value
          */
         String getCitizenship();
 

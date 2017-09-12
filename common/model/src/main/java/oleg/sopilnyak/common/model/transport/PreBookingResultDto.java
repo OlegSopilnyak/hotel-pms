@@ -2,7 +2,6 @@ package oleg.sopilnyak.common.model.transport;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -39,11 +38,13 @@ public class PreBookingResultDto implements PreBookingResult {
 //    private Set<RoomDto> dedicatedRoom;
 //    private Set<GuestDto> guests;
 
+    @SuppressWarnings("unchecked")
     public Set<Room> getDedicatedRoom(){
         return dedicatedRoom;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Set<Guest> getGuests() {
         return guests;
     }
@@ -51,7 +52,7 @@ public class PreBookingResultDto implements PreBookingResult {
     // inner classes
     private static class RoomSetDeserializer extends JsonDeserializer<Set<RoomDto>> {
         @Override
-        public Set<RoomDto> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Set<RoomDto> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(jsonParser);
@@ -60,7 +61,7 @@ public class PreBookingResultDto implements PreBookingResult {
     }
     private static class GuestSetDeserializer extends JsonDeserializer<Set<GuestDto>> {
         @Override
-        public Set<GuestDto> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Set<GuestDto> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(jsonParser);

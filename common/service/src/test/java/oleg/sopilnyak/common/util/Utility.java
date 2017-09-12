@@ -5,9 +5,9 @@ import oleg.sopilnyak.common.model.transport.GuestDto;
 import oleg.sopilnyak.common.model.transport.PersonDto;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class utility for tests
@@ -26,7 +26,7 @@ public final class Utility {
         guest.setFirstName("First");
         guest.setLastName("Last");
         guest.setDocument(PersonDto.ID.builder().type("PASSPORT").citizenship("UA").number("123456").expired(LocalDate.now().plusYears(5)).build());
-        return Arrays.asList(guest).stream().collect(Collectors.toSet());
+        return Stream.of(guest).collect(Collectors.toSet());
     }
 
 }

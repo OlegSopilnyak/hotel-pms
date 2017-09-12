@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TimeServiceImplTest {
 
-    private TimeServiceImpl service = new TimeServiceImpl();
+    private final TimeServiceImpl service = new TimeServiceImpl();
     @Test
     public void today() throws Exception {
         LocalDate today = service.today();

@@ -93,7 +93,7 @@ public class PersistenceServiceImpl implements PersistenceService {
         List<RoomActivityEntity> schedule = roomActivityRepository.findByStartedAtBetween(from.atStartOfDay(),to.atStartOfDay());
         List<String> roomIds = schedule.stream()
                 .filter(a-> a.getType() == Room.Activity.Type.BOOKED)
-                .map(a->a.getRoomId())
+                .map(RoomActivityEntity::getRoomId)
                 .collect(Collectors.toList());
         List<RoomEntity> rooms = roomIds.isEmpty() ? roomRepository.findAll():roomRepository.findByIdNotIn(roomIds);
         return rooms.stream().map(r-> mapper.map(r, RoomDto.class)).collect(Collectors.toSet());
@@ -145,7 +145,7 @@ public class PersistenceServiceImpl implements PersistenceService {
         List<RoomActivityEntity> schedule = roomActivityRepository.findByStartedAtBetween(from.atStartOfDay(),till.atStartOfDay());
         List<String> agreementIds = schedule.stream()
                 .filter(a-> a.getType() == Room.Activity.Type.BOOKED)
-                .map(a->a.getHotelAgreementId())
+                .map(RoomActivityEntity::getHotelAgreementId)
                 .collect(Collectors.toList());
         List<HotelAgreementEntity> suits = hotelAgreementRepository.findByIdIn(agreementIds);
         return suits.stream().map(a -> mapper.map(a, HotelAgreementDto.class)).collect(Collectors.toSet());

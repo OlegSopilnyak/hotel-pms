@@ -37,9 +37,11 @@ public class InitBookingRequest implements Serializable {
 //    private Set<RoomFeatureDto> features;
     private Set features;
 
+    @SuppressWarnings("unchecked")
     public Set<Guest> getGuests(){
         return guests;
     }
+    @SuppressWarnings("unchecked")
     public Set<Room.Feature> getFeatures(){
         return features;
     }

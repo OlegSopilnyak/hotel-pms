@@ -24,8 +24,10 @@ public class HotelDto implements Hotel{
     private String street;
     private String building;
     private String zipCode;
+    @SuppressWarnings("Annotator")
     @Pattern(regexp = "\\-?\\d+.\\d\\d+", message = "Latitude Should Be In Format 'd+.dd+' Or '-d+.dd+'")
     private String latitude;
+    @SuppressWarnings("Annotator")
     @Pattern(regexp = "\\-?\\d+.\\d\\d+", message = "Longitude Should Be In Format 'd+.dd+' Or '-d+.dd+'")
     private String longitude;
     private String webSite;

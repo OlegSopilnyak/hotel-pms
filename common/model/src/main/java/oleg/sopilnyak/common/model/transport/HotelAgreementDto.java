@@ -25,6 +25,7 @@ public class HotelAgreementDto implements HotelAgreement{
     @Getter(AccessLevel.NONE)
     private Set guestSet = new LinkedHashSet<>();
     //    private Set<GuestDto> guestSet = new LinkedHashSet<>();
+    @SuppressWarnings("unchecked")
     public Set<Guest> getGuestSet(){
         return guestSet;
     }

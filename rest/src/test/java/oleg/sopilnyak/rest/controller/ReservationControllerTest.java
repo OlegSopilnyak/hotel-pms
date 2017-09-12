@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import oleg.sopilnyak.common.facade.CustomerFacade;
 import oleg.sopilnyak.common.model.business.ConfirmReservation;
+import oleg.sopilnyak.common.model.business.Guest;
 import oleg.sopilnyak.common.model.business.Room;
 import oleg.sopilnyak.common.model.configuration.ModelConfiguration;
 import oleg.sopilnyak.common.model.transport.*;
@@ -33,9 +34,9 @@ import org.springframework.web.context.WebApplicationContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
@@ -60,9 +61,9 @@ public class ReservationControllerTest {
     @Autowired
     protected CustomerFacade customerFacade;
 
-    protected MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-    protected ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Before
     public void setUp() throws Exception {
@@ -84,29 +85,29 @@ public class ReservationControllerTest {
         feature.setDescription("TV Set with 100 channels.");
         feature.setDailyCost(BigDecimal.ZERO);
         feature.setTotalCost(BigDecimal.ONE);
-        request.setFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        request.setFeatures(Stream.of(feature).collect(Collectors.toSet()));
         GuestDto guest = new GuestDto();
         guest.setFirstName("First");
         guest.setLastName("Last");
         guest.setId("12344-4265-999");
-        request.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        request.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         request.setFrom(LocalDate.now());
         request.setTo(LocalDate.now());
         request.setRooms(1);
 
         PreBookingResultDto response = new PreBookingResultDto();
         response.setHotelAgreementId("12345678-2345678");
-        response.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        response.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         room.setId("HT-234");
         room.setCapacity(2);
         room.setFloor(2);
         room.setType(Room.Type.BUSINESS);
         room.setWindows(1);
         room.setDailyCost(BigDecimal.valueOf(140));
-        response.setDedicatedRoom(Arrays.asList(room).stream().collect(Collectors.toSet()));
-        when(customerFacade.book(any(LocalDate.class), any(LocalDate.class), anySet(), anyInt(), anySet())).thenReturn(response);
+        response.setDedicatedRoom(Stream.of(room).collect(Collectors.toSet()));
+        when(customerFacade.book(any(LocalDate.class), any(LocalDate.class), anySetOf(Guest.class), anyInt(), anySetOf(Room.Feature.class))).thenReturn(response);
 
         String content = objectMapper.writeValueAsString(request);
         MvcResult result =
@@ -134,29 +135,29 @@ public class ReservationControllerTest {
         feature.setDescription("TV Set with 100 channels.");
         feature.setDailyCost(BigDecimal.ZERO);
         feature.setTotalCost(BigDecimal.ONE);
-        request.setFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        request.setFeatures(Stream.of(feature).collect(Collectors.toSet()));
         GuestDto guest = new GuestDto();
         guest.setFirstName("First");
         guest.setLastName("Last");
         guest.setId("12344-4265-999");
-        request.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        request.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         request.setFrom(LocalDate.now());
         request.setTo(LocalDate.now());
         request.setRooms(1);
 
         PreBookingResultDto response = new PreBookingResultDto();
         response.setHotelAgreementId("12345678-2345678");
-        response.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        response.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         room.setId("HT-234");
         room.setCapacity(2);
         room.setFloor(2);
         room.setType(Room.Type.BUSINESS);
         room.setWindows(1);
         room.setDailyCost(BigDecimal.valueOf(140));
-        response.setDedicatedRoom(Arrays.asList(room).stream().collect(Collectors.toSet()));
-        when(customerFacade.book(any(LocalDate.class), any(LocalDate.class), anySet(), anyInt(), anySet()))
+        response.setDedicatedRoom(Stream.of(room).collect(Collectors.toSet()));
+        when(customerFacade.book(any(LocalDate.class), any(LocalDate.class), anySetOf(Guest.class), anyInt(), anySetOf(Room.Feature.class)))
                 .thenThrow(new CannotReserveException("test"))
                 ;
 
@@ -185,31 +186,31 @@ public class ReservationControllerTest {
         guest.setFirstName("First");
         guest.setLastName("Last");
         guest.setId("12344-4265-999");
-        request.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        request.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         request.setFrom(LocalDate.now());
         request.setTo(LocalDate.now());
         request.setRooms(1);
 
         PreBookingResultDto response = new PreBookingResultDto();
         response.setHotelAgreementId("12345678-2345678");
-        response.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        response.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         room.setId("HT-234");
         room.setCapacity(2);
         room.setFloor(2);
         room.setType(Room.Type.BUSINESS);
         room.setWindows(1);
         room.setDailyCost(BigDecimal.valueOf(140));
-        response.setDedicatedRoom(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        response.setDedicatedRoom(Stream.of(room).collect(Collectors.toSet()));
         request.setId(response.getHotelAgreementId());
 
-        when(customerFacade.change(anyString(), any(LocalDate.class), any(LocalDate.class), anySet(), anyInt())).thenReturn(response);
+        when(customerFacade.change(anyString(), any(LocalDate.class), any(LocalDate.class), anySetOf(Guest.class), anyInt())).thenReturn(response);
 
         String content = objectMapper.writeValueAsString(request);
         MvcResult result =
 
-                mockMvc.perform(post(BASE_URL + "/update")
+                mockMvc.perform(put(BASE_URL + "/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content))
                         .andExpect(status().isOk()).andReturn();
@@ -237,32 +238,32 @@ public class ReservationControllerTest {
         guest.setFirstName("First");
         guest.setLastName("Last");
         guest.setId("12344-4265-999");
-        request.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        request.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         request.setFrom(LocalDate.now());
         request.setTo(LocalDate.now());
         request.setRooms(1);
 
         PreBookingResultDto response = new PreBookingResultDto();
         response.setHotelAgreementId("12345678-2345678");
-        response.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        response.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         room.setId("HT-234");
         room.setCapacity(2);
         room.setFloor(2);
         room.setType(Room.Type.BUSINESS);
         room.setWindows(1);
         room.setDailyCost(BigDecimal.valueOf(140));
-        response.setDedicatedRoom(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        response.setDedicatedRoom(Stream.of(room).collect(Collectors.toSet()));
         request.setId(response.getHotelAgreementId());
 
-        when(customerFacade.change(anyString(), any(LocalDate.class), any(LocalDate.class), anySet(), anyInt()))
+        when(customerFacade.change(anyString(), any(LocalDate.class), any(LocalDate.class), anySetOf(Guest.class), anyInt()))
                 .thenThrow(new CannotChangeReservationException("test", "id 4566"))
         ;
         String content = objectMapper.writeValueAsString(request);
         MvcResult result =
 
-                mockMvc.perform(post(BASE_URL + "/update")
+                mockMvc.perform(put(BASE_URL + "/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content))
                         .andExpect(status().isConflict()).andReturn();
@@ -276,14 +277,14 @@ public class ReservationControllerTest {
         ConfirmedReservationDto request = new ConfirmedReservationDto();
         request.setAgreementId("56789");
         ConfirmedRoomDto room = new ConfirmedRoomDto();
-        request.setBookedRooms(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        request.setBookedRooms(Stream.of(room).collect(Collectors.toSet()));
         request.setCreditCard(new CreditCardDto());
         String content = objectMapper.writeValueAsString(request);
         when(customerFacade.confirm(any(ConfirmReservation.class))).thenReturn("Success");
 
         MvcResult result =
 
-                mockMvc.perform(post(BASE_URL + "/confirm")
+                mockMvc.perform(put(BASE_URL + "/confirm")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content))
                         .andExpect(status().isOk()).andReturn();
@@ -298,7 +299,7 @@ public class ReservationControllerTest {
         ConfirmedReservationDto request = new ConfirmedReservationDto();
         request.setAgreementId("56789");
         ConfirmedRoomDto room = new ConfirmedRoomDto();
-        request.setBookedRooms(Arrays.asList(room).stream().collect(Collectors.toSet()));
+        request.setBookedRooms(Stream.of(room).collect(Collectors.toSet()));
         request.setCreditCard(new CreditCardDto());
         String content = objectMapper.writeValueAsString(request);
         when(customerFacade.confirm(any(ConfirmReservation.class)))
@@ -307,7 +308,7 @@ public class ReservationControllerTest {
 
         MvcResult result =
 
-                mockMvc.perform(post(BASE_URL + "/confirm")
+                mockMvc.perform(put(BASE_URL + "/confirm")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content))
                         .andExpect(status().isNotFound()).andReturn();
@@ -374,7 +375,7 @@ public class ReservationControllerTest {
         LocalDate till = LocalDate.now();
         HotelAgreementDto agreementDto = new HotelAgreementDto();
         agreementDto.setId("123");
-        when(customerFacade.findReserved(from, till)).thenReturn(Arrays.asList(agreementDto).stream().collect(Collectors.toSet()));
+        when(customerFacade.findReserved(from, till)).thenReturn(Stream.of(agreementDto).collect(Collectors.toSet()));
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         MvcResult result =
 

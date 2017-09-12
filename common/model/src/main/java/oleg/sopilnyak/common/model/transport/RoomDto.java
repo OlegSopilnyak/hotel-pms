@@ -21,6 +21,7 @@ import java.util.Set;
 /**
  * Transport Model type for manage hotel rooms
  */
+@SuppressWarnings("ALL")
 @Data
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "capacity", "type", "floor"})

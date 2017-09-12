@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "reservation_part")
-@EqualsAndHashCode(callSuper = false)
-public class ReservationEntity extends AbstractEntity implements Reservation {
+@EqualsAndHashCode(callSuper = true)
+class ReservationEntity extends AbstractEntity implements Reservation {
     private String id;
     @Column(name = "start_period")
     private LocalDate from;

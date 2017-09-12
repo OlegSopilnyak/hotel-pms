@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "room_feature")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class RoomFeatureEntity extends AbstractEntity implements Room.Feature {
     private String code;
     private String name;

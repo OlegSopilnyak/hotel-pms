@@ -34,6 +34,7 @@ public class ChangeBookingRequest implements Serializable {
     private Set guests;
     private int rooms;
 
+    @SuppressWarnings("unchecked")
     public Set<Guest> getGuests(){
         return guests;
     }

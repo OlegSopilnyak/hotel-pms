@@ -23,8 +23,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public CreditCardDto buildCreditCardDto(){
-        CreditCardDto dto = new CreditCardDto();
-        return dto;
+        return new CreditCardDto();
     }
 
     /**
@@ -36,8 +35,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public EmployeeDto buildEmployeeDto(){
-        EmployeeDto dto = new EmployeeDto();
-        return dto;
+        return new EmployeeDto();
     }
 
     /**
@@ -49,8 +47,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public GuestDto buildGuestDto(){
-        GuestDto dto = new GuestDto();
-        return dto;
+        return new GuestDto();
     }
 
     /**
@@ -62,8 +59,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public HabitationDto buildHabitationDto(){
-        HabitationDto dto = new HabitationDto();
-        return dto;
+        return new HabitationDto();
     }
 
     /**
@@ -75,8 +71,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public HabitationOccupiedDto buildOccupiedDto(){
-        HabitationOccupiedDto dto = new HabitationOccupiedDto();
-        return dto;
+        return new HabitationOccupiedDto();
     }
 
     /**
@@ -88,8 +83,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public HotelAgreementDto buildHotelAgreementDto(){
-        HotelAgreementDto dto = new HotelAgreementDto();
-        return dto;
+        return new HotelAgreementDto();
     }
 
     /**
@@ -101,8 +95,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public HotelDto buildHotelDto(){
-        HotelDto dto = new HotelDto();
-        return dto;
+        return new HotelDto();
     }
 
     /**
@@ -114,8 +107,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public PhotoDto buildPhotoDto(){
-        PhotoDto dto = new PhotoDto();
-        return dto;
+        return new PhotoDto();
     }
 
     /**
@@ -127,8 +119,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public ReservationDto buildReservationDto(){
-        ReservationDto dto = new ReservationDto();
-        return dto;
+        return new ReservationDto();
     }
 
     /**
@@ -140,8 +131,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public RoomDto buildRoomDto(){
-        RoomDto dto = new RoomDto();
-        return dto;
+        return new RoomDto();
     }
 
     /**
@@ -153,8 +143,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public ServiceProvidedDto buildServiceProvidedDto(){
-        ServiceProvidedDto dto = new ServiceProvidedDto();
-        return dto;
+        return new ServiceProvidedDto();
     }
 
     /**
@@ -166,8 +155,7 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public PreBookingResultDto buildPreBookingResultDto(){
-        PreBookingResultDto dto = new PreBookingResultDto();
-        return dto;
+        return new PreBookingResultDto();
     }
 
     /**
@@ -179,7 +167,6 @@ public class ModelConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.NO)
     public RoomActivityDto buildRootActivityDto(){
-        RoomActivityDto dto = new RoomActivityDto();
-        return dto;
+        return new RoomActivityDto();
     }
 }

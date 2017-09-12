@@ -17,7 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "agreement")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class HotelAgreementEntity extends AbstractEntity implements HotelAgreement{
     private String id;
     private LocalDateTime createdAt;
@@ -35,6 +35,7 @@ public class HotelAgreementEntity extends AbstractEntity implements HotelAgreeme
     @Getter(AccessLevel.NONE)
     private Set guestSet;
 
+    @SuppressWarnings("unchecked")
     public Set<Guest> getGuestSet(){
         return guestSet;
     }

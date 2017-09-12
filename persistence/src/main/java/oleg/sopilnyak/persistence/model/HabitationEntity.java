@@ -15,8 +15,8 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "habitation_part")
-@EqualsAndHashCode(callSuper = false)
-public class HabitationEntity extends AbstractEntity implements Habitation {
+@EqualsAndHashCode(callSuper = true)
+class HabitationEntity extends AbstractEntity implements Habitation {
     private String id;
     private String hotelId;
 

@@ -8,7 +8,6 @@ import oleg.sopilnyak.common.service.PersistenceService;
 import oleg.sopilnyak.common.service.TimeService;
 import oleg.sopilnyak.common.service.configuration.ServiceConfiguration;
 import oleg.sopilnyak.persistence.configuration.PersistenceConfiguration;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,9 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -38,7 +37,7 @@ import static org.junit.Assert.*;
         ModelConfiguration.class, ServiceConfiguration.class
 })
 @Configuration
-@Rollback(true)
+@Rollback()
 public class PersistenceServiceImplIT {
 
     @Autowired
@@ -59,7 +58,7 @@ public class PersistenceServiceImplIT {
                 .owner("John Dow").build());
         GuestDto guest = makeTestGuest();
 
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
 
         ReservationDto reservation = new ReservationDto();
         reservation.setId(agreementDto.getId());
@@ -79,7 +78,7 @@ public class PersistenceServiceImplIT {
         habitation.setHotelId("HO-1");
         habitation.setTotalFee(BigDecimal.valueOf(300));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
-        occupied.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        occupied.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setDailyCost(BigDecimal.valueOf(100));
         room.setWindows(1);
@@ -93,10 +92,10 @@ public class PersistenceServiceImplIT {
         feature.setCode("R-TV");
         feature.setName("TV");
         feature.setDescription("In room TV set.");
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         occupied.setRoom(room);
-        occupied.setActiveFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
-        habitation.setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        occupied.setActiveFeatures(Stream.of(feature).collect(Collectors.toSet()));
+        habitation.setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
         ServiceProvidedDto provided = new ServiceProvidedDto();
         provided.setCost(BigDecimal.TEN);
         provided.setDescription("Order table in restaurant");
@@ -105,7 +104,7 @@ public class PersistenceServiceImplIT {
         provided.setStartTime(timer.now().minusHours(2));
         provided.setState(ServiceProvided.State.DONE);
         provided.setInChargeOf(receptionist);
-        habitation.setServices(Arrays.asList(provided).stream().collect(Collectors.toSet()));
+        habitation.setServices(Stream.of(provided).collect(Collectors.toSet()));
 
         agreementDto.setHabitation(habitation);
 
@@ -145,7 +144,7 @@ public class PersistenceServiceImplIT {
                 .owner("John Dow").build());
         GuestDto guest = makeTestGuest();
 
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
 
         ReservationDto reservation = new ReservationDto();
         reservation.setId(agreementDto.getId());
@@ -165,7 +164,7 @@ public class PersistenceServiceImplIT {
         habitation.setHotelId("HO-1");
         habitation.setTotalFee(BigDecimal.valueOf(300));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
-        occupied.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        occupied.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setDailyCost(BigDecimal.valueOf(100));
         room.setWindows(1);
@@ -179,10 +178,10 @@ public class PersistenceServiceImplIT {
         feature.setCode("R-TV");
         feature.setName("TV");
         feature.setDescription("In room TV set.");
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         occupied.setRoom(room);
-        occupied.setActiveFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
-        habitation.setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        occupied.setActiveFeatures(Stream.of(feature).collect(Collectors.toSet()));
+        habitation.setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
         ServiceProvidedDto provided = new ServiceProvidedDto();
         provided.setName("Book table");
         provided.setCost(BigDecimal.TEN);
@@ -192,7 +191,7 @@ public class PersistenceServiceImplIT {
         provided.setStartTime(timer.now().minusHours(2));
         provided.setState(ServiceProvided.State.DONE);
         provided.setInChargeOf(receptionist);
-        habitation.setServices(Arrays.asList(provided).stream().collect(Collectors.toSet()));
+        habitation.setServices(Stream.of(provided).collect(Collectors.toSet()));
 
         agreementDto.setHabitation(habitation);
 
@@ -232,7 +231,7 @@ public class PersistenceServiceImplIT {
                 .owner("John Dow").build());
         GuestDto guest = makeTestGuest();
 
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
 
         ReservationDto reservation = new ReservationDto();
         reservation.setId(agreementDto.getId());
@@ -252,7 +251,7 @@ public class PersistenceServiceImplIT {
         habitation.setHotelId("HO-1");
         habitation.setTotalFee(BigDecimal.valueOf(300));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
-        occupied.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        occupied.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setDailyCost(BigDecimal.valueOf(100));
         room.setWindows(1);
@@ -266,10 +265,10 @@ public class PersistenceServiceImplIT {
         feature.setCode("R-TV");
         feature.setName("TV");
         feature.setDescription("In room TV set.");
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         occupied.setRoom(room);
-        occupied.setActiveFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
-        habitation.setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        occupied.setActiveFeatures(Stream.of(feature).collect(Collectors.toSet()));
+        habitation.setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
         ServiceProvidedDto provided = new ServiceProvidedDto();
         provided.setCost(BigDecimal.TEN);
         provided.setDescription("Order table in restaurant");
@@ -278,7 +277,7 @@ public class PersistenceServiceImplIT {
         provided.setStartTime(timer.now().minusHours(2));
         provided.setState(ServiceProvided.State.DONE);
         provided.setInChargeOf(receptionist);
-        habitation.setServices(Arrays.asList(provided).stream().collect(Collectors.toSet()));
+        habitation.setServices(Stream.of(provided).collect(Collectors.toSet()));
 
         agreementDto.setHabitation(habitation);
 
@@ -355,7 +354,7 @@ public class PersistenceServiceImplIT {
                 .owner("John Dow").build());
         GuestDto guest = makeTestGuest();
 
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
 
         ReservationDto reservation = new ReservationDto();
         reservation.setId(agreementDto.getId());
@@ -375,7 +374,7 @@ public class PersistenceServiceImplIT {
         habitation.setHotelId("HO-1");
         habitation.setTotalFee(BigDecimal.valueOf(300));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
-        occupied.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        occupied.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setDailyCost(BigDecimal.valueOf(100));
         room.setWindows(1);
@@ -389,10 +388,10 @@ public class PersistenceServiceImplIT {
         feature.setCode("R-TV");
         feature.setName("TV");
         feature.setDescription("In room TV set.");
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         occupied.setRoom(room);
-        occupied.setActiveFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
-        habitation.setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        occupied.setActiveFeatures(Stream.of(feature).collect(Collectors.toSet()));
+        habitation.setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
         ServiceProvidedDto provided = new ServiceProvidedDto();
         provided.setCost(BigDecimal.TEN);
         provided.setDescription("Order table in restaurant");
@@ -401,7 +400,7 @@ public class PersistenceServiceImplIT {
         provided.setStartTime(timer.now().minusHours(2));
         provided.setState(ServiceProvided.State.DONE);
         provided.setInChargeOf(receptionist);
-        habitation.setServices(Arrays.asList(provided).stream().collect(Collectors.toSet()));
+        habitation.setServices(Stream.of(provided).collect(Collectors.toSet()));
 
         agreementDto.setHabitation(habitation);
 
@@ -457,7 +456,7 @@ public class PersistenceServiceImplIT {
                 .owner("John Dow").build());
         GuestDto guest = makeTestGuest();
 
-        agreementDto.setGuestSet(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        agreementDto.setGuestSet(Stream.of(guest).collect(Collectors.toSet()));
 
         ReservationDto reservation = new ReservationDto();
         reservation.setId(agreementDto.getId());
@@ -477,7 +476,7 @@ public class PersistenceServiceImplIT {
         habitation.setHotelId("HO-1");
         habitation.setTotalFee(BigDecimal.valueOf(300));
         HabitationOccupiedDto occupied = new HabitationOccupiedDto();
-        occupied.setGuests(Arrays.asList(guest).stream().collect(Collectors.toSet()));
+        occupied.setGuests(Stream.of(guest).collect(Collectors.toSet()));
         RoomDto room = new RoomDto();
         room.setDailyCost(BigDecimal.valueOf(100));
         room.setWindows(1);
@@ -491,10 +490,10 @@ public class PersistenceServiceImplIT {
         feature.setCode("R-TV");
         feature.setName("TV");
         feature.setDescription("In room TV set.");
-        room.setAvailableFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
+        room.setAvailableFeatures(Stream.of(feature).collect(Collectors.toSet()));
         occupied.setRoom(room);
-        occupied.setActiveFeatures(Arrays.asList(feature).stream().collect(Collectors.toSet()));
-        habitation.setOccupied(Arrays.asList(occupied).stream().collect(Collectors.toSet()));
+        occupied.setActiveFeatures(Stream.of(feature).collect(Collectors.toSet()));
+        habitation.setOccupied(Stream.of(occupied).collect(Collectors.toSet()));
         ServiceProvidedDto provided = new ServiceProvidedDto();
         provided.setCost(BigDecimal.TEN);
         provided.setDescription("Order table in restaurant");
@@ -503,7 +502,7 @@ public class PersistenceServiceImplIT {
         provided.setStartTime(timer.now().minusHours(2));
         provided.setState(ServiceProvided.State.DONE);
         provided.setInChargeOf(receptionist);
-        habitation.setServices(Arrays.asList(provided).stream().collect(Collectors.toSet()));
+        habitation.setServices(Stream.of(provided).collect(Collectors.toSet()));
 
         agreementDto.setHabitation(habitation);
 

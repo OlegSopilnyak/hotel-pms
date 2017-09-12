@@ -13,7 +13,7 @@ public interface Hotel extends HaveId,Serializable {
     /**
      * To get name of the hotel
      *
-     * @return
+     * @return value
      */
     String getName();
 
@@ -34,7 +34,7 @@ public interface Hotel extends HaveId,Serializable {
     /**
      * To get street of hotel location
      *
-     * @return streeet
+     * @return street
      */
     String getStreet();
 
@@ -57,6 +57,7 @@ public interface Hotel extends HaveId,Serializable {
      *
      * @return value
      */
+    @SuppressWarnings("Annotator")
     @Pattern(regexp = "\\-?\\d+.\\d\\d+", message = "Latitude Should Be In Format 'd+.dd+' Or '-d+.dd+'")
     String getLatitude();
 
@@ -65,6 +66,7 @@ public interface Hotel extends HaveId,Serializable {
      *
      * @return value
      */
+    @SuppressWarnings("Annotator")
     @Pattern(regexp = "\\-?\\d+.\\d\\d+", message = "Lon Should Be In Format 'd+.dd+' Or '-d+.dd+'")
     String getLongitude();
 

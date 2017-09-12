@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -66,7 +66,7 @@ public class ServiceConfiguration {
 
     @Bean(name = "coreServiceMapper")
     public DozerBeanMapper buildDozerBeanMapper(){
-        List<String> mappingFiles = Arrays.asList(
+        List<String> mappingFiles = Collections.singletonList(
                 "dozerJdk8Converters.xml"
         );
 

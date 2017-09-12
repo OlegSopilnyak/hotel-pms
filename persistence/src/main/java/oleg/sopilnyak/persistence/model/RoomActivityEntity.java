@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "room_schedule")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class RoomActivityEntity extends AbstractEntity implements Room.Activity {
     private String id;
     private Type type;

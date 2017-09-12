@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
     /**
-     * Fing employee by tag and active
+     * Find employee by tag and active
      *
      * @param tag    tag of worker
      * @param active true anyway

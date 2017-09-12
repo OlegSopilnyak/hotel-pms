@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "rooms")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class RoomEntity extends AbstractEntity implements Room {
     private String id;
     private Integer capacity;

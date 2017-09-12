@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "hotels")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class HotelEntity extends AbstractEntity implements Hotel {
     private String id;
     private String name;
@@ -24,8 +24,10 @@ public class HotelEntity extends AbstractEntity implements Hotel {
     private String street;
     private String building;
     private String zipCode;
+    @SuppressWarnings("Annotator")
     @Pattern(regexp = "\\-?\\d+.\\d\\d+", message = "Latitude Should Be In Format 'd+.dd+' Or '-d+.dd+'")
     private String latitude;
+    @SuppressWarnings("Annotator")
     @Pattern(regexp = "\\-?\\d+.\\d\\d+", message = "Longitude Should Be In Format 'd+.dd+' Or '-d+.dd+'")
     private String longitude;
     private String webSite;

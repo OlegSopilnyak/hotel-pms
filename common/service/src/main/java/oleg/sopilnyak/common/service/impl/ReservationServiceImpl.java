@@ -71,7 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
     public void init() throws Exception {
         if (active) return;
         active = true;
-        future = runner.scheduleWithFixedDelay(()->checkDedicatedRooms(), 10, scanDelay, TimeUnit.MINUTES);
+        future = runner.scheduleWithFixedDelay(this::checkDedicatedRooms, 10, scanDelay, TimeUnit.MINUTES);
         log.info("Run reservation service");
     }
 
@@ -83,7 +83,7 @@ public class ReservationServiceImpl implements ReservationService {
         log.info("Stop reservation service");
     }
 
-    public boolean isActive(){return active;}
+    boolean isActive(){return active;}
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -195,7 +195,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         final Map<String, GuestDto> guests = agreement.getGuestSet().stream()
                 .map(g -> (GuestDto) g)
-                .collect(toMap(g -> g.getId(), g -> g));
+                .collect(toMap(PersonDto::getId, g -> g));
         final Map<String, HabitationOccupiedDto> oRooms = agreement.getHabitation().getOccupied()
                 .stream().map(o -> (HabitationOccupiedDto) o)
                 .collect(toMap(o -> o.getRoom().getId(), o -> o));
@@ -208,13 +208,13 @@ public class ReservationServiceImpl implements ReservationService {
                 throw new ResourceNotFoundException("Not dedicated room with id:" + roomCode);
             }
             final Map<String, RoomFeatureDto> features = occupied.getRoom().getAvailableFeatures()
-                    .stream().map(fe -> (RoomFeatureDto) fe).collect(toMap(f -> f.getCode(), f -> f));
+                    .stream().map(fe -> (RoomFeatureDto) fe).collect(toMap(RoomFeatureDto::getCode, f -> f));
             occupied.setGuests(b.getGuestIds().stream()
-                    .map(gid -> guests.get(gid)).filter(g -> g != null)
+                    .map(guests::get).filter(Objects::nonNull)
                     .collect(Collectors.toSet())
             );
             occupied.setActiveFeatures(b.getFeatureIds().stream()
-                    .map(fid -> features.get(fid)).filter(f -> f != null)
+                    .map(features::get).filter(Objects::nonNull)
                     .collect(Collectors.toSet())
             );
         }
@@ -229,6 +229,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     void dedicateFreeRooms(Set<Room> freeRooms, HotelAgreement agreement) {
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         final Set<HabitationOccupiedDto> roomSet = new LinkedHashSet<>();
         freeRooms.forEach(r -> {
             final RoomActivityDto activity = activityFactory.getObject();

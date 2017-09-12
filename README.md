@@ -23,8 +23,8 @@ To get access to database used by service point your browser to **docker-host/co
 with in-memory database, entering: **jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false** to **JDBC URL** field.<br/>
 <br/>**Endpoints served by micro-service:**<br>
 `POST /api/rooms-reservation/create` - creates unconfirmed reservation request;<br>
-`POST /api/rooms-reservation/confirm` - confirm created reservation;<br/>
-`POST /api/rooms-reservation/update` - update confirmed reservation;<br/>
+`PUT /api/rooms-reservation/confirm` - confirm created reservation;<br/>
+`PUT /api/rooms-reservation/update` - update confirmed reservation;<br/>
 `GET /api/rooms-reservation/agreement/{id}` - get hotel agreement by id <br/>
 `DELETE /api/rooms-reservation/agreement/{id}` - delete reservation by id<br/>
 `GET /api/rooms-reservation/reserved/from/{from}/till/{till}` - where parameters look<br/> like **`yyyy-MM-dd`**,

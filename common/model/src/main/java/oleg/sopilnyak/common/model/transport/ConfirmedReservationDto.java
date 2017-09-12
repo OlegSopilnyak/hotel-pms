@@ -2,7 +2,6 @@ package oleg.sopilnyak.common.model.transport;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -33,7 +32,7 @@ public class ConfirmedReservationDto implements ConfirmReservation {
 
     private static class ConfirmedRoomSetDeserializer extends JsonDeserializer<Set<ConfirmedRoomDto>> {
         @Override
-        public Set<ConfirmedRoomDto> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        public Set<ConfirmedRoomDto> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(jsonParser);

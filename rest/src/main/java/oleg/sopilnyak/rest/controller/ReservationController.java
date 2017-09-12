@@ -26,6 +26,7 @@ public class ReservationController {
 
     private final CustomerFacade facade;
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     public ReservationController(CustomerFacade facade) {
         this.facade = facade;
@@ -42,7 +43,7 @@ public class ReservationController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ResponseEntity<PreBookingResult> preBookRooms(@RequestBody ChangeBookingRequest request) {
         log.info("Change booking.");
         PreBookingResult response =
@@ -52,7 +53,7 @@ public class ReservationController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    @RequestMapping(value = "/confirm", method = RequestMethod.PUT)
     public ResponseEntity<String> confirmBooking(@RequestBody ConfirmedReservationDto confirmation) {
         log.info("Confirming booking for {}", confirmation.getAgreementId());
         return ResponseEntity.ok(facade.confirm(confirmation));
